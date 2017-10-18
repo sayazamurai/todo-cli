@@ -22,25 +22,28 @@ def print_todos():
         print(f"- {next_todo}")
 
 
+def write_todos(todo):
+    todo_list.append(todo)
+
+    with open("todos.txt", 'w') as todos_txt:
+        todos_txt.write('\n'.join(todo_list))
+
+
 def todo():
     while True:
         print_todos()
 
         todo = input("Add a todo:\n")
-        todo_list.append(todo)
 
-        with open("todos.txt", 'w') as todos_txt:
-            todos_txt.write('\n'.join(todo_list))
+        write_todos(todo)
 
 
 def todo2():
-        todo = argv[2]
-        todo_list.append(todo)
+    todo = argv[2]
 
-        print_todos()
+    write_todos(todo)
 
-        with open("todos.txt", 'w') as todos_txt:
-            todos_txt.write('\n'.join(todo_list))
+    print_todos()
 
 
 def todo_argv():
