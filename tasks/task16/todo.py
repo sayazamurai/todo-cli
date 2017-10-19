@@ -29,13 +29,6 @@ def write_todos(todo):
         todos_txt.write('\n'.join(todo_list))
 
 
-# def remove_completed_todos():
-#     todo_list.pop(todo_number_completed - 1)
-
-#     with open("todos.txt", 'w') as todos_txt:
-#         todos_txt.write('\n'.join(todo_list))
-
-
 def command_todos():
     todo_command = input("Enter a command (add/exit/check):\n")
 
@@ -48,8 +41,6 @@ def command_todos():
 
     elif todo_command == "check":
         todo_number_completed = int(input("Which item to mark as completed?\n"))
-
-        # remove_completed_todos()
         todo_list.pop(todo_number_completed - 1)
 
         with open("todos.txt", 'w') as todos_txt:
@@ -77,37 +68,16 @@ def todo2():
     print_todos()
 
 
-def todo3():
-    todo_number_completed = int(argv[2])
-
-    # remove_completed_todos()
-    todo_list.pop(todo_number_completed - 1)
-
-    with open("todos.txt", 'w') as todos_txt:
-            todos_txt.write('\n'.join(todo_list))
-
-    print_todos()
-
-
 def todo_argv():
-    if len(argv) == 2:
-        if argv[1] == "list":
-            print_todos()
+    if len(argv) == 2 and argv[1] == "list":
+        print_todos()
 
-        elif argv[1] == "add":
-            print('''Error: Name of a todo item missing.
+    elif len(argv) == 2 and argv[1] == "add":
+        print('''Error: Name of a todo item missing.
 Try: python3.6 todo.py add "Name of todo item"''')
 
-        elif argv[1] == "check":
-            print('''Error: Item number missing.
-Try: python3.6 todo.py check item_number"''')
-
     elif len(argv) == 3:
-        if argv[1] == "check":
-            todo3()
-
-        elif len(argv) == 3:
-            todo2()
+        todo2()
 
     else:
         todo()
