@@ -49,12 +49,11 @@ def command_todos():
     elif todo_command == "check":
         todo_number_completed = int(input("Which item to mark as completed?\n"))
 
-        if todo_number_completed > len(todo_list):
-            print("Invalid item number.")
-            command_todos()
+        remove_completed_todos(todo_number_completed)
+        # todo_list.pop(todo_number_completed - 1)
 
-        else:
-            remove_completed_todos(todo_number_completed)
+        # with open("todos.txt", 'w') as todos_txt:
+        #     todos_txt.write('\n'.join(todo_list))
 
         todo()
 
@@ -81,12 +80,13 @@ def todo2():
 def todo3():
     todo_number_completed = int(argv[2])
 
-    if todo_number_completed > len(todo_list):
-        print("Invalid item number.")
+    remove_completed_todos(todo_number_completed)
+    # todo_list.pop(todo_number_completed - 1)
 
-    else:
-        remove_completed_todos(todo_number_completed)
-        print_todos()
+    # with open("todos.txt", 'w') as todos_txt:
+    #         todos_txt.write('\n'.join(todo_list))
+
+    print_todos()
 
 
 def todo_argv():
