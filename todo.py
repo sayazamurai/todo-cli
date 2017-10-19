@@ -29,11 +29,11 @@ def write_todos(todo):
         todos_txt.write('\n'.join(todo_list))
 
 
-# def remove_completed_todos():
-#     todo_list.pop(todo_number_completed - 1)
+def remove_completed_todos(remove_number):
+    todo_list.pop(remove_number - 1)
 
-#     with open("todos.txt", 'w') as todos_txt:
-#         todos_txt.write('\n'.join(todo_list))
+    with open("todos.txt", 'w') as todos_txt:
+        todos_txt.write('\n'.join(todo_list))
 
 
 def command_todos():
@@ -49,11 +49,11 @@ def command_todos():
     elif todo_command == "check":
         todo_number_completed = int(input("Which item to mark as completed?\n"))
 
-        # remove_completed_todos()
-        todo_list.pop(todo_number_completed - 1)
+        remove_completed_todos(todo_number_completed)
+        # todo_list.pop(todo_number_completed - 1)
 
-        with open("todos.txt", 'w') as todos_txt:
-            todos_txt.write('\n'.join(todo_list))
+        # with open("todos.txt", 'w') as todos_txt:
+        #     todos_txt.write('\n'.join(todo_list))
 
         todo()
 
@@ -80,11 +80,11 @@ def todo2():
 def todo3():
     todo_number_completed = int(argv[2])
 
-    # remove_completed_todos()
-    todo_list.pop(todo_number_completed - 1)
+    remove_completed_todos(todo_number_completed)
+    # todo_list.pop(todo_number_completed - 1)
 
-    with open("todos.txt", 'w') as todos_txt:
-            todos_txt.write('\n'.join(todo_list))
+    # with open("todos.txt", 'w') as todos_txt:
+    #         todos_txt.write('\n'.join(todo_list))
 
     print_todos()
 
@@ -106,7 +106,7 @@ Try: python3.6 todo.py check item_number"''')
         if argv[1] == "check":
             todo3()
 
-        elif len(argv) == 3:
+        else:
             todo2()
 
     else:
