@@ -43,6 +43,11 @@ def command_todos():
         print(f"Sorry, {todo_command} is not a valid command.")
         command_todos()
 
+    elif todo_command == "add":
+        todo = input("Add a todo:\n")
+
+        write_todos(todo)
+
     elif todo_command == "exit":
         exit(0)
 
@@ -56,18 +61,12 @@ def command_todos():
         else:
             remove_completed_todos(todo_number_completed)
 
-        todo()
-
 
 def todo():
     while True:
         print_todos()
 
         command_todos()
-
-        todo = input("Add a todo:\n")
-
-        write_todos(todo)
 
 
 def todo2():
