@@ -4,22 +4,12 @@ print("Welcome to your todo list!")
 
 todo_list = []
 
-completed_list = []
-
 open("todos.txt", "a").close()
-
-open("completed.txt", "a").close()
 
 with open("todos.txt") as todos_txt:
     for todos_readline in todos_txt:
         todos_readline_strip = todos_readline.strip()
         todo_list.append(todos_readline_strip)
-
-
-with open("completed.txt") as completed_txt:
-    for completed_readline in completed_txt:
-        completed_readline_strip = completed_readline.strip()
-        completed_list.append(completed_readline_strip)
 
 
 def print_todos():
@@ -40,11 +30,6 @@ def write_todos(todo):
 
 
 def remove_completed_todos(remove_number):
-    completed_list.append(todo_list[remove_number - 1])
-
-    with open("completed.txt", 'w') as completed_txt:
-        completed_txt.write('\n'.join(completed_list))
-
     todo_list.pop(remove_number - 1)
 
     with open("todos.txt", 'w') as todos_txt:
@@ -120,7 +105,7 @@ Try: python3.6 todo.py check item_number"''')
         if argv[1] == "check":
             todo3()
 
-        else: # argv[1] == "add"?
+        else:
             todo2()
 
     else:
@@ -128,3 +113,5 @@ Try: python3.6 todo.py check item_number"''')
 
 
 todo_argv()
+
+
