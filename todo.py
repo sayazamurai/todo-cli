@@ -4,7 +4,6 @@ print("Welcome to your todo list!")
 
 todo_list = []
 
-# completed_list = []
 
 open("todos.txt", "a").close()
 
@@ -14,12 +13,6 @@ with open("todos.txt") as todos_txt:
     for todos_readline in todos_txt:
         todos_readline_strip = todos_readline.strip()
         todo_list.append(todos_readline_strip)
-
-
-# with open("completed.txt") as completed_txt:
-#     for completed_readline in completed_txt:
-#         completed_readline_strip = completed_readline.strip()
-#         completed_list.append(completed_readline_strip)
 
 
 def print_todos():
@@ -40,21 +33,8 @@ def write_todos(todo):
 
 
 def remove_completed_todos(remove_number):
-    # `open`のときに`a`を使う →
-    # txtファイルの最後に文字列が追加されるので
-    # いままでの completed.txt の中身を保持しておく必要がない
     with open("completed.txt", 'a') as completed_txt:
         completed_txt.write(f"{todo_list[remove_number - 1]}\n")
-
-    # `open` のときに `w` を使う →
-    # ファイルの中身が全部総入れ替えされるため、
-    # removeする前に、いままでの completed.txt の中身を
-    # 全部リストで保持しておき
-    # removeする度に、リストに項目を追加していく必要がある
-    # completed_list.append(todo_list[remove_number - 1])
-    #
-    # with open("completed.txt", 'w') as completed_txt:
-    #     completed_txt.write('\n'.join(completed_list))
 
     todo_list.pop(remove_number - 1)
 
@@ -62,11 +42,20 @@ def remove_completed_todos(remove_number):
         todos_txt.write('\n'.join(todo_list))
 
 
-def command_todos():
-    todo_command = input("Enter a command (add/exit/check):\n")
+def edit_todos(number_edited, todo_edited):
+    todo_list[number_edited - 1] = todo_edited
 
-    if todo_command != "add" and todo_command != "exit" and todo_command != "check":
+    with open("todos.txt", 'w') as todos_txt:
+        todos_txt.write('\n'.join(todo_list))
+
+
+def command_todos():
+    todo_command = input("Enter a command (add/exit/check/edit):\n")
+
+    if todo_command != "add" and todo_command != "exit" and \
+    todo_command != "check" and todo_command != "edit":
         print(f"Sorry, {todo_command} is not a valid command.")
+
         command_todos()
 
     elif todo_command == "add":
@@ -82,10 +71,27 @@ def command_todos():
 
         if todo_number_completed > len(todo_list):
             print("Invalid item number.")
+
             command_todos()
 
         else:
             remove_completed_todos(todo_number_completed)
+
+    elif todo_command == "edit":
+        todo_edited_input = input("Enter item number, followed by a space and the new item name.\n")
+
+        str_todo_number_edited = todo_edited_input.split(' ', 1)[0]
+        str_todo_edited = todo_edited_input.split(' ', 1)[1]
+
+        int_todo_number_edited = int(str_todo_number_edited)
+
+        if int_todo_number_edited > len(todo_list):
+            print("Invalid item number.")
+
+            command_todos()
+
+        else:
+            edit_todos(int_todo_number_edited, str_todo_edited)
 
 
 def todo():
@@ -111,6 +117,19 @@ def todo3():
 
     else:
         remove_completed_todos(todo_number_completed)
+
+        print_todos()
+
+def todo4():
+    int_todo_number_edited = int(argv[2])
+    str_todo_edited = argv[3]
+
+    if int_todo_number_edited > len(todo_list):
+        print("Invalid item number.")
+
+    else:
+        edit_todos(int_todo_number_edited, str_todo_edited)
+
         print_todos()
 
 
@@ -127,15 +146,34 @@ Try: python3.6 todo.py add "Name of todo item"''')
             print('''Error: Item number missing.
 Try: python3.6 todo.py check item_number"''')
 
+        elif argv[1] == "edit":
+            print('''Error: Item number or new name missing.
+Try: python3.6 todo.py edit item_number "Name of todo item"''')
+
+        else:
+            print(f"Sorry, {argv[1]} is not a valid command.")
+
     elif len(argv) == 3:
-        if argv[1] == "check":
+        if argv[1] == "add":
+            todo2()
+
+        elif argv[1] == "check":
             todo3()
 
-        else: # argv[1] == "add"?
-            todo2()
+        elif argv[1] == "edit":
+            print('''Error: Item number or new name missing.
+Try: python3.6 todo.py edit item_number "Name of todo item"''')
+
+        else:
+            print(f"Sorry, {argv[1]} is not a valid command.")
+
+    elif len(argv) == 4:
+        if argv[1] == "edit":
+            todo4()
+
+        else:
+            print(f"Sorry, {argv[1]} is not a valid command.")
 
     else:
         todo()
-
-
 todo_argv()
