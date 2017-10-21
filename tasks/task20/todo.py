@@ -44,7 +44,7 @@ def remove_completed_todos(remove_number):
 
 def edit_todos(number_edited, todo_edited):
     # list[x] = y ...
-    # リストのXの要素をyに置き換える
+    # リストのxの要素をyに置き換える
     todo_list[number_edited - 1] = todo_edited
 
     with open("todos.txt", 'w') as todos_txt:
