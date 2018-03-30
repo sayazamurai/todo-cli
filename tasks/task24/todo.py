@@ -27,20 +27,23 @@ class TodoList:
             for line in f:
                 # 余分なスペースをなくしてtodo_nameに代入する
                 todo_name = line.strip()
-                # ??? Todoオブジェクトを作る
                 # 変数nameはtodo_name、
                 # 今は既存のtodoを読み込んでいるのでis_newはFalse
-                # ???? new_todoは文字列ではなくオブジェクトTodo(...)
+                # Todoのオブジェクトnew_todoを作る
+                # new_todoは文字列ではなくTodoのオブジェクト
                 new_todo = Todo(todo_name, False)
-                # リストself.todosにTodo(...)を追加する
+                # リストself.todosにTodo(todo_name(= "watch~とか"), False)を追加する
                 self.todos.append(new_todo)
 
     def list(self):
+        # todoにはself.todosが順に渡される
+        # self.todosの中身は[Todo("watch~", False), Todo("listen~", False), ...]
+        # => todo = Todo(〇〇, False)
+        # todoはTodoのオブジェクト
         for todo in self.todos:
-            # ??? todoはTodoのオブジェクト
             todo.print_todo()
 
-    def add(self, new_todo):
+    def add(self, todo_name):
         new_todo = Todo(todo_name, True)
         self.todos.append(new_todo)
         self.list()
@@ -52,11 +55,18 @@ class TodoList:
     # メソッド名の前に"_"をつける
     # "_"がついているメソッドはclassの外から呼んではいけない
     def _save(self):
+        # 書き込みモードでtodo.txtを開く
         with open("todos.txt", "w") as f:
             todo_string_list = []
+            # todoにはself.todosが順に渡される
+            # self.todosの中身はaddしたあとの
+            # リスト = [Todo("watch~", False), Todo("listen~", False), ...]
+            # =>
+            # todo = Todo(〇〇, True or False)
+            # todoはTodoのオブジェクト
             for todo in self.todos:
-                # ??? todoはTodoのオブジェクト
                 todo_string_list.append(todo.name)
+            # todo_string_listの中身をひとつずつ改行してfに書き込む
             f.write("\n".join(todo_string_list))
 
 
