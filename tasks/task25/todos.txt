@@ -1,0 +1,3 @@
+{"clean room": ["wash dishes", "wipe floor", "fold clothes"]}
+{"watch sexy zone channel": ["watch tohoku trip", "watsh are you marius"]}
+{"talk to shu": "none"}
